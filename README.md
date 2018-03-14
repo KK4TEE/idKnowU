@@ -15,7 +15,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 ## Compatible Devices:
 	* Microsfot HoloLens
 	* Epson Moverio
-	* Intel Vaunt (using phone BLE/Becons)
+	* Intel Vaunt (using a tethered phone)
 	* Android based Smartphones
 	
 ## Capture.py
@@ -37,6 +37,9 @@ for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/tra
 /root/openface/demos/classifier.py train /root/openface/idknowu/features-data
 
 /root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg
+
+python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/latest_capture.jpg
+* This records and updates the file /root/openface/idknowu/server/ with the face it detects in server/latest_capture.jpg and loops as quickly as possible (witing half a second on error)
 
 
 ## idknowuserver.py

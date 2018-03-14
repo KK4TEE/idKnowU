@@ -54,6 +54,7 @@ fileDir = os.path.dirname(os.path.realpath(__file__))
 modelDir = os.path.join(fileDir, '..', 'models')
 dlibModelDir = os.path.join(modelDir, 'dlib')
 openfaceModelDir = os.path.join(modelDir, 'openface')
+textFile = "/root/openface/idknowu/server/currentFace.txt"
 
 
 def getRep(imgPath, multiple=False):
@@ -177,9 +178,6 @@ def train(args):
 
 
 def infer(args, multiple=False):
-    textFile = "currentFace.txt"
-    
-    
     with open(args.classifierModel, 'rb') as f:
         if sys.version_info[0] < 3:
                 (le, clf) = pickle.load(f)
