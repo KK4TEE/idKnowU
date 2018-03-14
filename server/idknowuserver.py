@@ -90,7 +90,7 @@ class Root:
         f.write(binascii.a2b_base64(input_json["image"]["0"]["base64"]))
         f.close()
         
-        filename = "latest_capture.jpg"
+        filename = imagesRootPath + "/latest_capture.jpg"
         f = open( filename,'wb') # Update the latest image
         f.write(binascii.a2b_base64(input_json["image"]["0"]["base64"]))
         f.close()
@@ -101,8 +101,10 @@ class Root:
         goldImages["devices"][str(input_json["settings"]["deviceUniqueIdentifier"])] = input_json
         
         ''' If the user is new, create a settings dictionary for their visualizations'''
+        ''' # Feature add in progress. Probably won't finish in time, so cutting it out.
         goldUsers["users"][str(input_json["settings"]["deviceUniqueIdentifier"])] = \
             CreateRemoteSettings(str(input_json["settings"]["deviceUniqueIdentifier"]), KnownDevices)
+            '''
             
         return result
     
