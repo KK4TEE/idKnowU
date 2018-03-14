@@ -12,7 +12,12 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 * idknowuserver.py is used to host the processed data to the network.
 * Unity / HoloLens is used to supply streaming video to be inspected and display results to the user.
 
-
+## Compatible Devices:
+	* Microsfot HoloLens
+	* Epson Moverio
+	* Intel Vaunt (using phone BLE/Becons)
+	* Android based Smartphones
+	
 ## Capture.py
 ![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")
 

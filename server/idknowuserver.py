@@ -31,7 +31,8 @@ import binascii
 
 
 protocol = "http"
-host = "127.0.0.1"
+host = "0.0.0.0"
+#host = "10.42.42.137"
 port = "8088"
 
 imagesRootPath = 'images'
@@ -39,7 +40,14 @@ imagesRootPath = 'images'
 global goldImages
 goldImages = {
     "name":"idKnowUServer1",
-    "devices": {}
+    "devices": {},
+    
+    "name": "name",
+    "socialMedia": "socialMedia",
+    "role": "role",
+    "funFact": "funFact",
+    "accuracy": "accuracy",
+    "counter": "0"
     }
     
 global goldUsers
@@ -58,7 +66,7 @@ class Root:
     def uploadjpg(self):
         global goldImages
         print("PICTURE UPLOADED")
-        result = {"operation": "request", "result": "success"}
+        result = {"operation": "request", "result": "success", "data":"IF you can read this, sending arbitrary data works"}
         input_json = cherrypy.request.json
         print("DeviceUniqueID: " + str(input_json["settings"]["deviceUniqueIdentifier"]))
         dt = datetime.datetime.utcnow()
