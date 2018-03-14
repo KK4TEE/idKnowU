@@ -30,15 +30,26 @@ From your shell (it will open an interactive docker container with openFace alre
 docker run -p 9000:9000 -p 8000:8000 -v C:/idKnowU:/root/openface/idknowu -t -i bamos/openface /bin/bash -l 
 
 From inside the openFace container:
-for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/training-images align outerEyesAndNose /root/openface/idknowu/aligned-data --size 96 & done
+* Size up the training pictures and extract the faces from the them
 
-/root/openface/batch-represent/main.lua -outDir /root/openface/idknowu/features-data -data /root/openface/idknowu/aligned-data
+ for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/training-images align outerEyesAndNose /root/openface/idknowu/aligned-data --size 96 & done
 
-/root/openface/demos/classifier.py train /root/openface/idknowu/features-data
+* Align them
 
-/root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg
+ /root/openface/batch-represent/main.lua -outDir /root/openface/idknowu/features-data -data /root/openface/idknowu/aligned-data
 
-python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/latest_capture.jpg
+* Train the recognizer
+
+ /root/openface/demos/classifier.py train /root/openface/idknowu/features-data
+
+* Test and see if it works
+
+ /root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg
+
+* Start the script that will repeatedly check the filesystem for new face captures
+
+ python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/latest_capture.jpg
+ 
 * This records and updates the file /root/openface/idknowu/server/ with the face it detects in server/latest_capture.jpg and loops as quickly as possible (witing half a second on error)
 
 
