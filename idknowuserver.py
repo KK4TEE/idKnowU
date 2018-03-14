@@ -1,0 +1,144 @@
+'''
+idKnowU Server
+Copyright 2018 Seth Persigehl (KK4TEE)
+Released under the MIT Licence
+See LICENSE for more details
+
+This script receives JSON wrapped base64 encoded JPG
+streaming images from an AR device (e.g. HoloLens)
+and then hands it off to OpenFace to see if any faces
+in the picture can be recognized. If there are any
+matches, the metadata and user inputed data are
+returned to the HoloLens as a JSON file for display
+to the user.
+
+CherryPy is used as the web server, and HTTPS
+transport can optionally be enabled if you provide
+the required certificates.
+
+This program was originally created during the
+2018 Creating Reality Hackathon in Los Angeles, CA
+
+'''
+
+import cherrypy
+import simplejson
+import os
+from time import sleep
+from time import strftime
+import datetime
+import binascii
+
+
+protocol = "http"
+host = "127.0.0.1"
+port = "8088"
+
+imagesRootPath = 'images'
+    
+global goldImages
+goldImages = {
+    "name":"idKnowUServer1",
+    "devices": {}
+    }
+    
+global goldUsers
+goldUsers = {
+    "name":"idKnowUServer1",
+    "users": {}
+    }
+    
+input_json = {}
+
+class Root:
+        
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    @cherrypy.tools.json_in()
+    def uploadjpg(self):
+        global goldImages
+        print("PICTURE UPLOADED")
+        result = {"operation": "request", "result": "success"}
+        input_json = cherrypy.request.json
+        print("DeviceUniqueID: " + str(input_json["settings"]["deviceUniqueIdentifier"]))
+        dt = datetime.datetime.utcnow()
+        filename = (imagesRootPath 
+            + "/" + str(dt.year) 
+            + "/" + str(dt.month) 
+            + "/" + str(dt.day) 
+            + "/" + str(dt.hour)
+            + "/" + str(dt.minute )
+            + "/" + str(input_json["settings"]["deviceUniqueIdentifier"]) 
+            + "-" + str(dt.year) 
+            + "-" + str(dt.month) 
+            + "-" + str(dt.day) 
+            + "-" + str(dt.hour)
+            + "-" + str(dt.minute )
+            + "-" + str(dt.second) 
+            + "-" + str(dt.microsecond).zfill(6)
+            + ".jpg"
+            )
+            
+        if not os.path.exists(os.path.dirname(filename)):
+            try:
+                os.makedirs(os.path.dirname(filename))
+            except OSError as exc: # Guard against race condition
+                if exc.errno != errno.EEXIST:
+                    raise
+        
+        f = open( filename,'wb') # Archive a copy of the image
+        f.write(binascii.a2b_base64(input_json["image"]["0"]["base64"]))
+        f.close()
+        
+        filename = "latest_capture.jpg"
+        f = open( filename,'wb') # Update the latest image
+        f.write(binascii.a2b_base64(input_json["image"]["0"]["base64"]))
+        f.close()
+        
+        input_json["image"]["0"]["base64"] = "stored to disk"
+        input_json["image"]["0"]["URL"] = protocol + "://" + host + ":" + port + "/" + filename
+        print(input_json["image"]["0"]["URL"])
+        goldImages["devices"][str(input_json["settings"]["deviceUniqueIdentifier"])] = input_json
+        
+        ''' If the user is new, create a settings dictionary for their visualizations'''
+        goldUsers["users"][str(input_json["settings"]["deviceUniqueIdentifier"])] = \
+            CreateRemoteSettings(str(input_json["settings"]["deviceUniqueIdentifier"]), KnownDevices)
+            
+        return result
+    
+    @cherrypy.expose
+    def index(self):
+        s = "<h1>idKnowU Server</h1><br>"
+        s += "Client IP: "
+        s += str(cherrypy.request.remote.ip)
+        s += "<br>Server Socket: "
+        s += str(cherrypy.server.socket_host)
+        return s
+        
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def jsonImages(self):
+        return goldImages
+        
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def jsonUsers(self):
+        return goldUsers
+
+if __name__ == '__main__':
+    
+    cherrypy.config.update({'server.socket_host': host,
+                        'server.socket_port': int(port),
+                            # The bellow sections are used for HTTPS
+                        #'server.ssl_module':  'builtin',
+                        #'server.ssl_certificate': 'cert.pem',
+                        #'server.ssl_certificate': 'fullchain.pem',
+                        #'server.ssl_private_key': 'privkey.pem',
+                        #'server.ssl_certificate_chain': 'chain.perm',
+                       })
+    cherrypy.config.update("Root.conf")
+    #cherrypy.quickstart(Root(), '/')
+    #cherrypy.quickstart(Root())
+   
+    cherrypy.tree.mount(Root(), "/", config="Root.conf")
+    cherrypy.engine.start()

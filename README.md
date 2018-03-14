@@ -2,6 +2,11 @@
 
 Use augmented reality, facial recognition, and machine learning to create holographic name tags for the people you meet. No more awkwardly forgetting someone's name!
 
+[unity-download]:                 https://unity3d.com/unity/whats-new/unity-2017.2.1
+[unity-version-badge]:            https://img.shields.io/badge/Current%20Unity%20Editor%20Version-2017.2.1f1-green.svg
+[![Github Release][unity-version-badge]][unity-download]
+
+
 * capture.py is used to build the information and face-matching data sets.
 * openFace is used to process the data.
 * idknowuserver.py is used to host the processed data to the network.
@@ -10,6 +15,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 
 ## Capture.py
 ![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")
+
 capture.py is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplie name.
 
 ## openFace
@@ -27,13 +33,12 @@ for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/tra
 
 /root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg
 
-*coming soon
 
 ## idknowuserver.py
 * coming soon
 
 ## Unity Project
-*coming soon
+* coming soon
 
 ## Project History
 This project was created for the Creating Reality Hackathon, hosted 2018-03-12 through 2018-03-14 at USC in Los Angeles, California, USA.
