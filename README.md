@@ -9,7 +9,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 
 
 #Capture.py
-![Capture.py Demonstration](doc/img/capture_py_demo.png?raw=true "Information capture script used to provide training data for machine learning")
+![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")
 capture.py is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplie name.
 
 #openFace
