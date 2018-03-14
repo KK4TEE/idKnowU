@@ -8,6 +8,7 @@ directory = "training-images"
 numberOfPictures = 20
 numberOfWarmupPics = 4
 hackathonRole = [
+            "Default",
             "Judges",
             "Mentors",
             "Developer",
@@ -26,6 +27,11 @@ hackathonRole = [
             "Architect/Space Designer",
             "Other"
             ]
+userDataLicence = [
+    "Default",
+    "Public Domain",
+    "Seth and his Team"
+    ]
 
 
 class MainGUI:
@@ -44,7 +50,7 @@ class MainGUI:
         self.bottomSpace = Label(master, text="     ", height=2, width=60)
         self.bottomSpace.pack(side=BOTTOM)
 
-        self.greet_button = Button(master, text="Save", command=self.greet, height=3, width=30)
+        self.greet_button = Button(master, text="Save", command=self.save, height=3, width=30)
         self.greet_button.pack()
         self.greet_button.pack(side=BOTTOM)
 
@@ -77,13 +83,25 @@ class MainGUI:
         self.email.insert(0, "Email (optional)")
 
                 
-        
-        self.listbox = Listbox(master, height=20)
+        self.bottomSpaceTwo = Label(master, text="My role:", height=2, width=30)
+        self.bottomSpaceTwo.pack()
+        self.listbox = Listbox(master, height=18, exportselection=0)
         self.listbox.pack()
         #####THIS USESS THE GLOBAL "hackathonRole"####
         for item in hackathonRole:
-            self.listbox.insert(END, item)
+            if item != "Default":
+                self.listbox.insert(END, item)
         self.listbox.pack()
+
+        self.bottomSpaceTwo = Label(master, text="I submit my data to:", height=2, width=30)
+        self.bottomSpaceTwo.pack()
+        self.licencebox = Listbox(master, height=3, exportselection=0)
+        self.licencebox.pack()
+        #####THIS USESS THE GLOBAL "userDataLicence"####
+        for item in userDataLicence:
+            if item != "Default":
+                self.licencebox.insert(END, item)
+        self.licencebox.pack()
 
         self.disclaimer = Label(master, text="By submitting I agree that the above information/pictures\n" +
                                             " will be owned by Seth Persigehl and his team.\n \n"
@@ -92,7 +110,7 @@ class MainGUI:
         self.disclaimer.pack()
         self.disclaimer.pack(side=BOTTOM)
 
-    def greet(self):
+    def save(self):
         nameDIR = self.uName.get().replace(" ", "")
         nameDIR = nameDIR.lower()
         photoDIR = directory + '/' + nameDIR
@@ -102,15 +120,23 @@ class MainGUI:
         f = open(photoDIR + '/' + nameDIR + '.txt','w')
 
         try:
-            self.item = self.listbox.curselection()[0]
+            self.item = self.listbox.curselection()[0] + 1 # the +1 is required to skip 'default'
         except:
-            self.item = "Other"
-            print("Error with listbox. Selected the default 'Other'")
+            self.item = 0
+            print("Error with listbox. Selected the default 'Default'")
+
+        try:
+            self.userL = self.licencebox.curselection()[0] + 1 # the +1 is required to skip 'default'
+        except:
+            self.userL = 0
+            print("Error with licencebox. Selected the default 'Default'")
+        
         f.write(str(self.uName.get()) + '\n')
         f.write(str(self.socialMedia.get()) + '\n')
         f.write(str(hackathonRole[self.item]) + '\n')
         f.write(str(self.funFact.get()) + '\n')
         f.write(str(self.email.get()) + '\n')
+        f.write(str(userDataLicence[self.userL]) + '\n')
         print('Written to disk')
 
     
