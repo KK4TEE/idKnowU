@@ -32,11 +32,12 @@ import binascii
 
 protocol = "http"
 host = "0.0.0.0"
-#host = "10.42.42.137"
 port = "8088"
 
 imagesRootPath = 'images'
-    
+openFaceOutputpath = 'currentFace.txt'
+userStoredDataparentPath = '../training-images/'
+
 global goldImages
 goldImages = {
     "name":"idKnowUServer1",
@@ -58,6 +59,26 @@ goldUsers = {
     
 input_json = {}
 
+def readData(path, cs):
+    filestring = open(path, "r")
+    s = str(filestring.read())
+    filestring.close()
+    entries = s.split(cs)
+
+    return entries
+
+def dictofpacking():
+    facelist = readData(openFaceOutputpath, "&")
+    userdata = readData(userStoredDataparentPath + facelist[0] +
+                        '/' + facelist[0] + '.txt', "\n")
+    goldImages["name"] = userdata[0]
+    goldImages["socialMedia"] = userdata[1]
+    goldImages["role"] = userdata[2]
+    goldImages["funFact"] = userdata[3]
+    goldImages["accuracy"] = facelist[1]
+    goldImages["counter"] = str(int(goldImages["counter"]) + 1)
+    return goldImages
+    
 class Root:
         
     @cherrypy.expose
@@ -128,7 +149,9 @@ class Root:
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def jsonImages(self):
-        return goldImages
+        #return readData(openFaceOutputpath)
+        return dictofpacking()
+        #return goldImages
         
     @cherrypy.expose
     @cherrypy.tools.json_out()

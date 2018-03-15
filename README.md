@@ -48,7 +48,7 @@ From inside the openFace container:
 
 * Start the script that will repeatedly check the filesystem for new face captures
 
- python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/latest_capture.jpg
+ python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/images/latest_capture.jpg
  
 * This records and updates the file /root/openface/idknowu/server/ with the face it detects in server/latest_capture.jpg and loops as quickly as possible (witing half a second on error)
 

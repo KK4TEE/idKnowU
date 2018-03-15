@@ -209,7 +209,7 @@ def infer(args, multiple=False):
                 #f.write(str(s))
                 #f.write("TESTING...")
                 #f.write(str(person.decode('utf-8')) + "\n" + str(bbx) + "\n" + str(confidence) + '\n')
-                f.write(str(person.decode('utf-8')) + "\n" + str(confidence) + '\n')
+                f.write(str(person.decode('utf-8')) + "&" + str(confidence))
                 f.close()
             if isinstance(clf, GMM):
                 dist = np.linalg.norm(rep - clf.means_[maxI])
