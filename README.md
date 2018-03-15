@@ -6,7 +6,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 [unity-version-badge]:            https://img.shields.io/badge/Current%20Unity%20Editor%20Version-2017.2.1f1-green.svg
 [![Github Release][unity-version-badge]][unity-download]
 
-
+![HoloLens](doc/img/idKnowU_HoloLens.jpg?raw=true "A through-lens look at our idKnowU running on the HoloLens")
 * capture.py is used to build the information and face-matching data sets.
 * openFace is used to process the data.
 * idknowuserver.py is used to host the processed data to the network.
