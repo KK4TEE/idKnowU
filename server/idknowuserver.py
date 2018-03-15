@@ -150,7 +150,11 @@ class Root:
     @cherrypy.tools.json_out()
     def jsonImages(self):
         #return readData(openFaceOutputpath)
-        return dictofpacking()
+        try:
+            r = dictofpacking()
+        except:
+            r = ""
+        return r
         #return goldImages
         
     @cherrypy.expose
