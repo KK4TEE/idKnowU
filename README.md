@@ -12,12 +12,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 * idknowuserver.py is used to host the processed data to the network.
 * Unity / HoloLens is used to supply streaming video to be inspected and display results to the user.
 
-## Compatible Devices:
-	* Microsfot HoloLens
-	* Epson Moverio
-	* Intel Vaunt (using a tethered phone)
-	* Android based Smartphones
-	
+
 ## Capture.py
 ![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")
 
@@ -32,23 +27,23 @@ docker run -p 9000:9000 -p 8000:8000 -v C:/idKnowU:/root/openface/idknowu -t -i 
 From inside the openFace container:
 * Size up the training pictures and extract the faces from the them
 
- for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/training-images align outerEyesAndNose /root/openface/idknowu/aligned-data --size 96 & done
+ ```for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/training-images align outerEyesAndNose /root/openface/idknowu/aligned-data --size 96 & done```
 
 * Align them
 
- /root/openface/batch-represent/main.lua -outDir /root/openface/idknowu/features-data -data /root/openface/idknowu/aligned-data
+ ```/root/openface/batch-represent/main.lua -outDir /root/openface/idknowu/features-data -data /root/openface/idknowu/aligned-data```
 
 * Train the recognizer
 
- /root/openface/demos/classifier.py train /root/openface/idknowu/features-data
+ ```/root/openface/demos/classifier.py train /root/openface/idknowu/features-data```
 
 * Test and see if it works
 
- /root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg
+ ```/root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg```
 
 * Start the script that will repeatedly check the filesystem for new face captures
 
- python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/images/latest_capture.jpg
+ ```python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/images/latest_capture.jpg```
  
 * This records and updates the file /root/openface/idknowu/server/ with the face it detects in server/latest_capture.jpg and loops as quickly as possible (witing half a second on error)
 
@@ -72,15 +67,15 @@ This project was created for the Creating Reality Hackathon, hosted 2018-03-12 t
 
 
 ## References:
-https://cmusatyalab.github.io/openface
-@techreport{amos2016openface,
-  title={OpenFace: A general-purpose face recognition
-    library with mobile applications},
-  author={Amos, Brandon and Bartosz Ludwiczuk and Satyanarayanan, Mahadev},
-  year={2016},
-  institution={CMU-CS-16-118, CMU School of Computer Science},
-}
+>https://cmusatyalab.github.io/openface
+>@techreport{amos2016openface,
+>  title={OpenFace: A general-purpose face recognition
+>    library with mobile applications},
+>  author={Amos, Brandon and Bartosz Ludwiczuk and Satyanarayanan, Mahadev},
+>  year={2016},
+>  institution={CMU-CS-16-118, CMU School of Computer Science},
+>}
 
-B. Amos, B. Ludwiczuk, M. Satyanarayanan,
-"Openface: A general-purpose face recognition library with mobile applications,"
-CMU-CS-16-118, CMU School of Computer Science, Tech. Rep., 2016.
+>B. Amos, B. Ludwiczuk, M. Satyanarayanan,
+>"Openface: A general-purpose face recognition library with mobile applications,"
+>CMU-CS-16-118, CMU School of Computer Science, Tech. Rep., 2016.
