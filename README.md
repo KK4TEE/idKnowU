@@ -13,7 +13,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 * Unity / HoloLens is used to supply streaming video to be inspected and display results to the user.
 
 
-## `Capture`](/capture.py)
+## [`Capture`](/capture.py)
 
 | [`capture.py`](/capture.py) is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplied name. |![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")|
 |:-------:|:---:|
@@ -21,7 +21,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 
 
 ## OpenFace
-Use the following commands to process the data from capture.py into usable results:
+Use the following commands to process the data from [capture.py](/capture.py) into usable results:
 
 From your shell (it will open an interactive docker container with openFace already configured):
 `docker run -p 9000:9000 -p 8000:8000 -v C:/idKnowU:/root/openface/idknowu -t -i bamos/openface /bin/bash -l `
