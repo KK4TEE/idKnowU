@@ -10,10 +10,10 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 * [`capture.py`](/capture.py) is used to build the information and face-matching data sets.
 * [OpenFace](https://github.com/cmusatyalab/openface) is used to process the data.
 * [`idknowuserver.py`](/server/idknowuserver.py) is used to host the processed data to the network.
-* Unity / HoloLens is used to supply streaming video to be inspected and display results to the user.
+* [Unity / HoloLens App](/unity/idKnowU) is used to supply streaming video to be inspected and display results to the user.
 
 
-## [`Capture`](/capture.py)
+## Capture
 
 | [`capture.py`](/capture.py) is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplied name. |![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")|
 |:-------:|:---:|
@@ -21,6 +21,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 
 
 ## OpenFace
+![OpenFace-Seth](/doc/img/OpenFace_image_flow.png?raw=true "OpenFace visual pipeline")
 Use the following commands to process the data from [capture.py](/capture.py) into usable results:
 
 From your shell (it will open an interactive docker container with openFace already configured):
@@ -39,16 +40,16 @@ From inside the openFace container:
 The last command records and updates the file `/root/openface/idknowu/server/` with the face it detects in `server/latest_capture.jpg` and loops as quickly as possible (waiting half a second on error).
 
 
-## [server/idknowuserver.py](server/idknowuserver.py)
-* Run this on your local machine from the server directory
+## /server/idknowuserver.py
+* Run [/server/idknowuserver.py](/server/idknowuserver.py) on your local machine from the server directory
 
-## [Unity Project](/unity/idKnowU)
-* Install to HoloLens or run from the editor
-  * Note: In Unity use 127.0.0.1 as the server if on local device or your actual local IP if from another device
+## Unity Project
+* Build and install the [Unity project](/unity/idKnowU) to HoloLens or run from the editor
+  * Note: In Unity use `127.0.0.1` as the server if on local device or your actual local IP if from another device
   * If the file fails to work on first load, you may need to scrap the cache files and rebuild. It saves more than 70MiB to load to GitHub without them, but can occasionally cause some issues on first build.
 
 ## Project History
-This project was created for the Creating Reality Hackathon, hosted 2018-03-12 through 2018-03-14 at USC in Los Angeles, California, USA.
+This project was created for the [Creating Reality Hackathon](https://creatingrealityhack.devpost.com/), hosted 2018-03-12 through 2018-03-14 at the [University of Southern California](https://www.usc.edu/) in Los Angeles, California, USA.
 
 
 ## Additional information:
