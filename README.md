@@ -14,15 +14,16 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 
 
 ## Capture.py
-![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")
+| capture.py is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplied name. |![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")|
+|:-------:|:---:|
 
-capture.py is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplie name.
+
 
 ## openFace
 Use the following commands to process the data from capture.py into usable results:
 
 From your shell (it will open an interactive docker container with openFace already configured):
-docker run -p 9000:9000 -p 8000:8000 -v C:/idKnowU:/root/openface/idknowu -t -i bamos/openface /bin/bash -l 
+`docker run -p 9000:9000 -p 8000:8000 -v C:/idKnowU:/root/openface/idknowu -t -i bamos/openface /bin/bash -l `
 
 From inside the openFace container:
 
@@ -34,7 +35,7 @@ From inside the openFace container:
 | Test and see if it works |  ```/root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg```|
 | Start the script that will repeatedly check the filesystem for new face captures | ```python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/images/latest_capture.jpg``` |
 
-The last command records and updates the file `/root/openface/idknowu/server/` with the face it detects in `server/latest_capture.jpg` and loops as quickly as possible (waiting half a second on error)
+The last command records and updates the file `/root/openface/idknowu/server/` with the face it detects in `server/latest_capture.jpg` and loops as quickly as possible (waiting half a second on error).
 
 
 ## server/idknowuserver.py
