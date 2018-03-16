@@ -44,8 +44,8 @@ The last command records and updates the file `/root/openface/idknowu/server/` w
 
 ## [Unity Project](/unity/idKnowU)
 * Install to HoloLens or run from the editor
-..* Note: In Unity use 127.0.0.1 as the server if on local device or your actual local IP if from another device
-..* If the file fails to work on first load, you may need to scrap the cache files and rebuild. It saves more than 70MiB to load to GitHub without them, but can occasionally cause some issues on first build.
+  * Note: In Unity use 127.0.0.1 as the server if on local device or your actual local IP if from another device
+  * If the file fails to work on first load, you may need to scrap the cache files and rebuild. It saves more than 70MiB to load to GitHub without them, but can occasionally cause some issues on first build.
 
 ## Project History
 This project was created for the Creating Reality Hackathon, hosted 2018-03-12 through 2018-03-14 at USC in Los Angeles, California, USA.
