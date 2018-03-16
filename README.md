@@ -27,13 +27,14 @@ docker run -p 9000:9000 -p 8000:8000 -v C:/idKnowU:/root/openface/idknowu -t -i 
 From inside the openFace container:
 
 | Function        | Command          |
-| :----------------: |:-------------------------------------------|
+| :--------: |:-------------------------------------------|
 | Size up the training pictures and extract the faces from the them    | ```for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/training-images align outerEyesAndNose /root/openface/idknowu/aligned-data --size 96 & done``` |
 | Compute the features of the faces      | ```/root/openface/batch-represent/main.lua -outDir /root/openface/idknowu/features-data -data /root/openface/idknowu/aligned-data```     |
 | Train the recognizer |  ```/root/openface/demos/classifier.py train /root/openface/idknowu/features-data```     |
 | Test and see if it works |  ```/root/openface/demos/classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/test/capture.jpg```|
 | Start the script that will repeatedly check the filesystem for new face captures | ```python /root/openface/idknowu/openface_classifier.py infer /root/openface/idknowu/features-data/classifier.pkl /root/openface/idknowu/server/images/latest_capture.jpg``` |
-The last command records and updates the file /root/openface/idknowu/server/ with the face it detects in server/latest_capture.jpg and loops as quickly as possible (witing half a second on error)
+
+The last command records and updates the file `/root/openface/idknowu/server/` with the face it detects in `server/latest_capture.jpg` and loops as quickly as possible (waiting half a second on error)
 
 
 ## server/idknowuserver.py
@@ -49,8 +50,9 @@ This project was created for the Creating Reality Hackathon, hosted 2018-03-12 t
 
 
 ## Additional information:
-* Requirements: Python3, openCV, OpenFace
-* License: MIT
+* Requirements: [Python3](https://www.python.org/downloads/), [openCV](https://pypi.python.org/pypi/opencv-python), [OpenFace](https://github.com/cmusatyalab/openface)
+* idKnowU License: [MIT](/LICENSE)
+* Dependencies retain their own respective licenses
 
 
 
