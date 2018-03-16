@@ -7,19 +7,20 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 [![Github Release][unity-version-badge]][unity-download]
 
 ![HoloLens](doc/img/idKnowU_HoloLens.jpg?raw=true "A through-lens look at our idKnowU running on the HoloLens")
-* capture.py is used to build the information and face-matching data sets.
-* openFace is used to process the data.
-* idknowuserver.py is used to host the processed data to the network.
+* [`capture.py`](/capture.py) is used to build the information and face-matching data sets.
+* [OpenFace](https://github.com/cmusatyalab/openface) is used to process the data.
+* [`idknowuserver.py`](/server/idknowuserver.py) is used to host the processed data to the network.
 * Unity / HoloLens is used to supply streaming video to be inspected and display results to the user.
 
 
 ## Capture.py
-| capture.py is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplied name. |![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")|
+
+| [`capture.py`](/capture.py) is used to build the information and face-matching data sets. It provides text and photo capture tools and automatically puts it into a folder structure based on the user's supplied name. |![Capture.py Demonstration](doc/img/capture_py_screenshot.png?raw=true "Information capture script used to provide training data for machine learning")|
 |:-------:|:---:|
 
 
 
-## openFace
+## OpenFace
 Use the following commands to process the data from capture.py into usable results:
 
 From your shell (it will open an interactive docker container with openFace already configured):
