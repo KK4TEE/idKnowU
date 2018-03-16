@@ -29,7 +29,7 @@ From your shell (it will open an interactive docker container with openFace alre
 From inside the openFace container:
 
 | Function        | Command          |
-| :--------: |:-------------------------------------------|
+| :------: |:----------------------------------------|
 | Size up the training pictures and extract the faces from the them    | ```for N in {1..8}; do /root/openface/util/align-dlib.py /root/openface/idknowu/training-images align outerEyesAndNose /root/openface/idknowu/aligned-data --size 96 & done``` |
 | Compute the features of the faces      | ```/root/openface/batch-represent/main.lua -outDir /root/openface/idknowu/features-data -data /root/openface/idknowu/aligned-data```     |
 | Train the recognizer |  ```/root/openface/demos/classifier.py train /root/openface/idknowu/features-data```     |
@@ -39,13 +39,13 @@ From inside the openFace container:
 The last command records and updates the file `/root/openface/idknowu/server/` with the face it detects in `server/latest_capture.jpg` and loops as quickly as possible (waiting half a second on error).
 
 
-## server/idknowuserver.py
+## [server/idknowuserver.py](server/idknowuserver.py)
 * Run this on your local machine from the server directory
 
 ## Unity Project
 * Install to HoloLens or run from the editor
-* Note: In Unity use 127.0.0.1 as the server if on local device or your actual local IP if from another device
-* If the file fails to work on first load, you may need to scrap the cache files and rebuild. It saves more than 70MiB to load to GitHub without them, but can occasionally cause some issues on first build.
+** Note: In Unity use 127.0.0.1 as the server if on local device or your actual local IP if from another device
+** If the file fails to work on first load, you may need to scrap the cache files and rebuild. It saves more than 70MiB to load to GitHub without them, but can occasionally cause some issues on first build.
 
 ## Project History
 This project was created for the Creating Reality Hackathon, hosted 2018-03-12 through 2018-03-14 at USC in Los Angeles, California, USA.
