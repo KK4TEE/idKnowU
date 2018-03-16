@@ -21,7 +21,7 @@ Use augmented reality, facial recognition, and machine learning to create hologr
 
 
 ## OpenFace
-![OpenFace-Seth](doc/img/OpenFace_image_flow?raw=true "OpenFace visual pipeline")
+![OpenFace-Seth](/doc/img/OpenFace_image_flow.png?raw=true "OpenFace visual pipeline")
 Use the following commands to process the data from [capture.py](/capture.py) into usable results:
 
 From your shell (it will open an interactive docker container with openFace already configured):
